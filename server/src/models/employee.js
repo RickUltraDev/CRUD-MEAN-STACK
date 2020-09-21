@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+//Schema equals to collection
+const employeeSchema = new Schema(
+{
+    name: {type: String, required: true},
+    position: {type: String, required: true},
+    office: {type: String, required: true},
+    salary: {type: Number, required: true},
+},{ 
+    //For add a bit of info with when was created or when was updated data last time
+    timestamps:true,
+    //For erase a '_v' sign inside mongodb collections
+    versionKey:false
+});
+
+module.exports = mongoose.model('employee', employeeSchema);
+

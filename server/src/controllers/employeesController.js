@@ -23,8 +23,9 @@ async function getEmployee(req, res) {
     res.status(200).send({employee: employee});
 }
 
-function editEmployee(req, res) {
-    res.send('editar empleado');
+async function editEmployee(req, res) {
+    var employee = await Employee.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).send({message: 'Employee updated'});
 }
 
 async function deleteEmployee(req, res) {

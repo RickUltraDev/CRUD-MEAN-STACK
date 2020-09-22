@@ -16,3 +16,16 @@ Content-Type: application/json
 GET http://localhost:3000/api/employee/5f695c869b990a28a46b8c03
 
 
+###
+DELETE http://localhost:3000/api/employee/5f695a05e33e8d4510a3308a
+
+###
+PUT http://localhost:3000/api/employee/5f695c869b990a28a46b8c03
+Content-Type: application/json
+
+{
+    "name" : "milo",
+    "position" : "jr. Developer",
+    "office": "Portland",
+    "salary": 2000
+}

@@ -5,23 +5,33 @@ const Employee = require('../models/employee');
 //Async Functions 
 async function getEmployees(req, res) {
     const employees = await Employee.find();
+
     res.status(200).send({employees: employees});
 }
 
-function createEmployee(req, res) {
-    res.send('crear empleados');
+async function createEmployee(req, res) {
+    //it receives a json with all attributes employee needs
+    var newEmployee = new Employee(req.body);
+
+    await newEmployee.save();
+
+    res.status(200).send({message: 'employee created' });
 }
 
-function getEmployee(req, res) {
-    res.send('obtener empleado');
+async function getEmployee(req, res) {
+    var employee = await Employee.findById(req.params.id);
+    res.status(200).send({employee: employee});
 }
 
 function editEmployee(req, res) {
     res.send('editar empleado');
 }
 
-function deleteEmployee(req, res) {
-    res.send('eliminar empleados');
+async function deleteEmployee(req, res) {
+    var employee = await Employee.findByIdAndDelete(req.params.id);
+    res.status(200).send({message: 'Employee deleted'});
+
+    //Min 55 del video
 }
 
 

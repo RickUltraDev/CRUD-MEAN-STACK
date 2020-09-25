@@ -13,14 +13,21 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
   
-  public getEmployees(){
+  getEmployees(){
       return this.http.get<Employee[]>(this.apiURL+'/employee');
   }
   
-  public createEmployee(employee: Employee){
+  createEmployee(employee: Employee){
     return this.http.post(this.apiURL+'/employee', employee);
   }
 
+  deleteEmployee(id: string){
+    return this.http.delete(this.apiURL+'/employee/'+id);
+  }
 
+  putEmployee(employee: Employee){
+    return this.http.put(this.apiURL+'/employee/'+employee._id, employee);
+  }
 
+  
 }

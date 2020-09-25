@@ -24,7 +24,7 @@ export class EmployeeComponent implements OnInit {
     this.getEmployees();
   }
 
-  public getEmployees(){
+  getEmployees(){
      
     this.employeeService.getEmployees().subscribe(
       res =>{
@@ -39,8 +39,26 @@ export class EmployeeComponent implements OnInit {
     );   
   }
 
-  public addEmployee(form: NgForm){
-    //form.value contains a new employee 
+  addEmployee(form: NgForm){
+
+    if(form.value._id){
+      //form.value contains a new employee 
+    this.employeeService.putEmployee(form.value).subscribe(
+      res =>{
+        //if the response its positive, do whatever things its written here
+        //clean form 
+        form.reset();
+        //update employee array
+        this.getEmployees();
+      },
+      err =>{
+        //if you have any error, do whatever things its written here
+        console.log(err);
+      }
+    ); 
+
+    }else{
+         //form.value contains a new employee 
     this.employeeService.createEmployee(form.value).subscribe(
       res =>{
         //if the response its positive, do whatever things its written here
@@ -54,7 +72,33 @@ export class EmployeeComponent implements OnInit {
         console.log(err);
       }
     ); 
+    }
     
+  }
+
+  deleteEmployee(id: string){
+    
+    if (confirm('Are you sure you want delete it?')) {
+      this.employeeService.deleteEmployee(id).subscribe(
+        res =>{
+          //if the response its positive, do whatever things its written here
+          console.log(res);
+          this.getEmployees();
+        },
+        err =>{
+          //if you have any error, do whatever things its written here
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  editEmployee(employeeRed: Employee){
+    this.selectedEmployee = employeeRed;
+  }
+
+  resetForm(form: NgForm){
+    form.reset();
   }
 
 }
